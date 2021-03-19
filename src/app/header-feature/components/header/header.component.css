@@ -22,12 +22,10 @@
   text-decoration: none;
   cursor: pointer;
   padding: 10px 20px;
-  border-radius: 5px;
 }
 
 .header-link.active-link {
-  background-color: rebeccapurple;
-  color: #fff;
+  border-bottom: 4px solid rebeccapurple;
 }
 
 .header-layout-spacer {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+('@angular/forms');
 
 @Component({
   selector: 'app-add-dog',
@@ -8,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 export class AddDogComponent implements OnInit {
   constructor() {}
 
+  dogForm = new FormGroup({
+    name: new FormControl(''),
+  });
+
   ngOnInit(): void {}
 
   handleAddDog(): void {
-    return null;
+    alert(this.dogForm.get('name').value);
+    this.dogForm.reset();
   }
 }

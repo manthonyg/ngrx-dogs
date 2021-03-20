@@ -3,7 +3,7 @@ import { DogService } from '../../service/dog.service';
 import { Dog } from '../../models/dog.model';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { fetchDogs } from '../../store/dog.actions';
+import { fetchDogs, deleteDog } from '../../store/dog.actions';
 import { AppState } from '../../../app.state';
 import { Router } from '@angular/router';
 @Component({
@@ -26,5 +26,9 @@ export class DogListComponent implements OnInit {
 
   ngOnInit(): void {
     this._dogStore.dispatch(fetchDogs());
+  }
+
+  handleDeleteDog(dogName: string) {
+    this._dogStore.dispatch(deleteDog({ name: dogName }));
   }
 }

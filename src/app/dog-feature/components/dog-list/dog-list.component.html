@@ -3,7 +3,9 @@
   <ul class="list">
     <li *ngFor="let dog of dogs$ | async" class="list-item">
       {{ dog.name }}
-      <button class="list-item-delete">Delete</button>
+      <button class="list-item-delete" (click)="handleDeleteDog(dog.name)">
+        Delete
+      </button>
     </li>
     {{
       errorMessage$ | async

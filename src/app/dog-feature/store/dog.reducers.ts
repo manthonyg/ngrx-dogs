@@ -6,6 +6,8 @@ import {
   deleteDog,
   deleteDogSuccess,
   deleteDogError,
+  fetchDogsSuccess,
+  fetchDogsError,
 } from './dog.actions';
 import { Dog } from '../models/dog.model';
 import { DogService } from '../service/dog.service';
@@ -51,7 +53,11 @@ const _dogReducer = createReducer(
   }),
   on(deleteDogError, (state, action) => {
     return state;
-  })
+  }),
+  on(fetchDogsSuccess, (state, action) => ({
+    ...state,
+    dogs: [...state.dogs, ...action.dogs],
+  }))
 );
 
 // This is a workaround for the View Engine as it does not support function calls

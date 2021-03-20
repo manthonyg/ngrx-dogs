@@ -24,5 +24,8 @@ export const deleteDogSuccess = createAction(DogActionTypes.DeleteDogSuccess);
 export const deleteDogError = createAction(DogActionTypes.DeleteDogError);
 
 export const fetchDogs = createAction(DogActionTypes.FetchDogs);
-export const fetchDogsSuccess = createAction(DogActionTypes.FetchDogsSuccess);
+export const fetchDogsSuccess = createAction(
+  DogActionTypes.FetchDogsSuccess,
+  props<{ dogs: Dog[] }>()
+);
 export const fetchDogsError = createAction(DogActionTypes.FetchDogsError);

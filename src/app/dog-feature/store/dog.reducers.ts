@@ -1,19 +1,60 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { addDog, deleteDog, fetchDogs } from './dog.actions';
+import {
+  addDog,
+  addDogSuccess,
+  addDogError,
+  deleteDog,
+  deleteDogSuccess,
+  deleteDogError,
+} from './dog.actions';
 import { Dog } from '../models/dog.model';
 import { DogService } from '../service/dog.service';
 import { AppState } from '../../app.state';
+import { ApplicationInitStatus } from '@angular/core';
+import { DogActionTypes } from './dog.actions';
+export const initialState: AppState = {
+  dogs: [],
+  loading: false,
+  isError: false,
+  errorMessage: null,
+};
 
-const initialState: Dog[] = [];
-
-export const dogReducer = createReducer(
+const _dogReducer = createReducer(
   initialState,
-  on(addDog, (state, dog) => {
-    console.log('tried to add dog', dog);
-    console.log([...state, dog]);
-    return [...state, dog];
+  on(addDog, (state, action) => {
+    if (action.name === 'moo')
+      return {
+        ...state,
+        isError: true,
+        errorMessage: 'No moo moos allowed',
+      };
+    else
+      return {
+        ...state,
+        isError: false,
+        errorMessage: null,
+        dogs: [...state.dogs, { name: action.name }],
+      };
   }),
-  on(deleteDog, (state, dog) =>
-    state.filter((currentDogs) => currentDogs.name !== dog.name)
-  )
+  on(addDogSuccess, (state, action) => {
+    return state;
+  }),
+  on(addDogError, (state, action) => {
+    return state;
+  }),
+  on(deleteDog, (state, action) => ({
+    ...state,
+    dogs: state.dogs.filter((dog) => dog.name !== action.name),
+  })),
+  on(deleteDogSuccess, (state, action) => {
+    return state;
+  }),
+  on(deleteDogError, (state, action) => {
+    return state;
+  })
 );
+
+// This is a workaround for the View Engine as it does not support function calls
+export const dogReducer = (state: AppState | undefined, action: Action) => {
+  return _dogReducer(state, action);
+};

@@ -4,19 +4,27 @@ import { Dog } from '../../models/dog.model';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { fetchDogs } from '../../store/dog.actions';
-
+import { AppState } from '../../../app.state';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dog-list',
   templateUrl: './dog-list.component.html',
   styleUrls: ['./dog-list.component.css'],
 })
 export class DogListComponent implements OnInit {
-  dogs$: Observable<{ dogs: Dog[] }>;
+  constructor(
+    private _dogStore: Store<{ dogState: AppState }>,
+    private _router: Router
+  ) {}
 
-  constructor(private _dogStore: Store<{ dogs: { dogs: Dog[] } }>) {}
+  dogs$: Observable<Dog[]> = this._dogStore.select(
+    ({ dogState }) => dogState.dogs
+  );
+  errorMessage$: Observable<string> = this._dogStore.select(
+    ({ dogState }) => dogState.errorMessage
+  );
 
   ngOnInit(): void {
-    this.dogs$ = this._dogStore.select('dogs');
     this._dogStore.dispatch(fetchDogs());
   }
 }

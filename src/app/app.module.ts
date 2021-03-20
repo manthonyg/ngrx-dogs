@@ -23,7 +23,7 @@ import { DogEffects } from './dog-feature/store/dog.effects';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ dogs: dogReducer }),
+    StoreModule.forRoot({ dogState: dogReducer }),
     EffectsModule.forRoot([DogEffects]),
   ],
   providers: [],

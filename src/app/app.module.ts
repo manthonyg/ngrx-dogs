@@ -11,12 +11,14 @@ import { StoreModule } from '@ngrx/store';
 import { dogReducer } from './dog-feature/store/dog.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { DogEffects } from './dog-feature/store/dog.effects';
+import { InfiniteScrollComponent } from './dog-feature/components/infinite-scroll/infinite-scroll.component';
 @NgModule({
   declarations: [
     AppComponent,
     DogListComponent,
     AddDogComponent,
     HeaderComponent,
+    InfiniteScrollComponent,
   ],
   imports: [
     BrowserModule,

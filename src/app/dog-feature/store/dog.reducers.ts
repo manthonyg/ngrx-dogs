@@ -57,7 +57,10 @@ const _dogReducer = createReducer(
   on(fetchDogsSuccess, (state, action) => ({
     ...state,
     dogs: [...state.dogs, ...action.dogs],
-  }))
+  })),
+  on(fetchDogsError, (state, action) => {
+    return state;
+  })
 );
 
 // This is a workaround for the View Engine as it does not support function calls
